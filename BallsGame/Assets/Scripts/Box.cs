@@ -8,21 +8,19 @@ public class Box : MonoBehaviour
     public TextMeshProUGUI visualHitpoints;
 
     public int row;
-    public int col; 
+    public int col;
 
     private int _hitpoints;
     // Start is called before the first frame update
     void Start()
     {
         int hitpoints = Random.Range(1, 101);
-        _hitpoints = hitpoints; 
-        visualHitpoints.text = hitpoints.ToString(); 
+        _hitpoints = hitpoints;
+        visualHitpoints.text = hitpoints.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Hit()
     {
-        
+        _hitpoints--;
     }
-
 }

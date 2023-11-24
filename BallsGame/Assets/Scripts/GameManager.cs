@@ -10,16 +10,19 @@ public class GameManager : MonoBehaviour
 	public int rows;
 	public int cols;
 	public float cellSize;
-	public float xSpacing; 
+	public float xSpacing;
 	public Camera mainCamera;
 	public Box prefab;
 
-	private List<Box> spawnRow; 
-
+	private List<Box> spawnRow;
 
 	//Private varaibles-----------------------
 	private int _roundCounter = 0;
-	public List<Box> boxes; 
+	public List<Box> boxes;
+
+	// Ball stuff
+	public GameObject ballSpawn;
+	public GameObject ballSpawnPrefab;
 
 	private void Start()
 	{
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			++_roundCounter; 
+			++_roundCounter;
 			MoveBox();
 		}
 	}
@@ -50,7 +53,6 @@ public class GameManager : MonoBehaviour
 				box.row = 0;
 				boxes.Add(box);
 			}
-			
 		}
 	}
 
@@ -59,10 +61,12 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < boxes.Count; i++)
 		{
 			boxes[i].transform.position = new Vector2(boxes[i].transform.position.x, boxes[i].transform.position.y - cellSize);
-			boxes[i].row += 1; 
+			boxes[i].row += 1;
 		}
-
-		SpawnBox(); 
+		SpawnBox();
 	}
 
+	public void SpawnBall()
+	{
+	}
 }
