@@ -567,8 +567,8 @@ GameObject:
   - component: {fileID: 1011658869}
   - component: {fileID: 1011658871}
   - component: {fileID: 1011658872}
-  m_Layer: 0
-  m_Name: Square (2)
+  m_Layer: 8
+  m_Name: Boundry
   m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,8 +726,8 @@ GameObject:
   - component: {fileID: 1039815238}
   - component: {fileID: 1039815237}
   - component: {fileID: 1039815236}
-  m_Layer: 0
-  m_Name: Square (1)
+  m_Layer: 8
+  m_Name: Boundry
   m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,8 +884,8 @@ GameObject:
   - component: {fileID: 1066801611}
   - component: {fileID: 1066801610}
   - component: {fileID: 1066801609}
-  m_Layer: 0
-  m_Name: Square (3)
+  m_Layer: 8
+  m_Name: Boundry
   m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1016,8 +1016,8 @@ GameObject:
   - component: {fileID: 1285562173}
   - component: {fileID: 1285562175}
   - component: {fileID: 1285562176}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 8
+  m_Name: Boundry
   m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

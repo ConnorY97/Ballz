@@ -114,12 +114,11 @@ public class GameManager : MonoBehaviour
 
     public void SpawnBox()
     {
-        int amountToSpawn = Random.Range(1, cols + 1);
         int currentCount = boxes.Count;
-        for (int i = 0; i < amountToSpawn; i++)
+        for (int i = 0; i < cols; i++)
         {
             int spawnChance = Random.Range(0, 10);
-            if (spawnChance < 6)
+            if (spawnChance < 3)
             {
                 Box box = Instantiate(boxPrefab, transform);
                 box.Init(RoundCounter);
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour
                 boxes.Add(box);
             }
         }
-        if (boxes.Count ==  0 || currentCount == boxes.Count())
+        if (boxes.Count ==  0)// || currentCount == boxes.Count())
         {
             SpawnBox();
         }
