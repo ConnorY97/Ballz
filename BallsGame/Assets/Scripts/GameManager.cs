@@ -1,11 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Singleton stuff
+    public static GameManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance !=  this)
+        {
+            Destroy(this);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     //Inspector variables----------------------
     public int rows;
     public int cols;
@@ -14,15 +31,16 @@ public class GameManager : MonoBehaviour
     public Camera mainCamera;
     public Box boxPrefab;
 
-    private List<Box> spawnRow;
+    private List<Box> spawnRow = new List<Box>();
 
     //Private varaibles-----------------------
     private int _roundCounter = 0;
-    public List<Box> boxes;
+    public List<Box> boxes = new List<Box>();
 
     // Ball stuff
     public GameObject ballSpawn;
     public Ball ballPrefab;
+    public float gravityMultipler = 0.75f;
 
     // Click stuff
     private Vector3 clickPos = Vector3.zero;
@@ -31,11 +49,16 @@ public class GameManager : MonoBehaviour
     private float shootForce = 0.0f;
     public LineRenderer drag;
     public float multiplyier = 100.0f;
-    private int ballz = 1;
+    private int ballz = 10;
 
     public List<Ball> balls = new List<Ball>();
 
     private bool isShooting = false;
+
+    int ballsShot = 0;
+
+    public int RoundCounter = 0;
+    public TMP_Text roundCounterUI;
 
     private void Start()
     {
@@ -81,6 +104,8 @@ public class GameManager : MonoBehaviour
                 dragPos = Vector3.zero;
             }
         }
+
+        roundCounterUI.text = RoundCounter.ToString();
     }
 
     public void SpawnBox()
@@ -93,6 +118,7 @@ public class GameManager : MonoBehaviour
             if (spawnChance < 6)
             {
                 Box box = Instantiate(boxPrefab, transform);
+                box.Init(RoundCounter);
                 box.transform.position = new Vector2(transform.position.x + (i * (cellSize + xSpacing)), transform.position.y);
                 box.col = i;
                 box.row = 0;
@@ -118,31 +144,67 @@ public class GameManager : MonoBehaviour
             Ball ball = Instantiate(ballPrefab, transform);
             ball.transform.position = ballSpawn.transform.position;
             Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+            CircleCollider2D coll = ball.GetComponent<CircleCollider2D>();
+            coll.isTrigger = true;
             rb.gravityScale = 0;
+            rb.Sleep();
             balls.Add(ball);
         }
     }
 
     private void Shoot(Vector3 dir, float force)
     {
-        Debug.Log("Dir: " + dir + " force: " + force);
-        isShooting = true;
+        StartCoroutine(ShootCoroutine(dir, force));
+    }
+
+    IEnumerator ShootCoroutine(Vector3 dir, float force)
+    {
         if (dir != Vector3.zero || force != 0f)
         {
+            isShooting = true;
             for (int i = 0; i < balls.Count; i++)
             {
                 Rigidbody2D rb = balls[i].GetComponent<Rigidbody2D>();
+                CircleCollider2D coll = balls[i].GetComponent<CircleCollider2D>();
                 if (rb != null)
                 {
-                    rb.gravityScale = 1;
-                    rb.AddForce((dir *  force) * multiplyier);
+                    coll.isTrigger = false;
+                    rb.WakeUp();
+                    rb.gravityScale = gravityMultipler;
+                    rb.AddForce((dir * force) * multiplyier);
+                    ballsShot++;
                 }
                 else
                 {
                     Debug.Log("RB null");
                 }
+                yield return new WaitForSeconds(0.1f);
             }
         }
-        isShooting = false;
+    }
+
+    public void BoxDestroyed(Box killed)
+    {
+        boxes.Remove(killed);
+    }
+
+    public void TouchedBase(Ball ballToReturn)
+    {
+        Rigidbody2D rb = ballToReturn.GetComponent<Rigidbody2D>();
+        CircleCollider2D coll = ballToReturn.GetComponent<CircleCollider2D>();
+
+        rb.Sleep();
+        coll.isTrigger = true;
+        rb.velocity = Vector3.zero;
+        rb.gravityScale = 0;
+        ballToReturn.transform.position = ballSpawn.transform.position;
+        ballsShot--;
+
+        if (ballsShot == 0)
+        {
+            isShooting = false;
+            SpawnBox();
+            RoundCounter++;
+        }
     }
 }

@@ -10,17 +10,25 @@ public class Box : MonoBehaviour
     public int row;
     public int col;
 
-    private int _hitpoints;
-    // Start is called before the first frame update
-    void Start()
+    private int hitPoints;
+
+    public void Init(float currentRound)
     {
-        int hitpoints = Random.Range(1, 101);
-        _hitpoints = hitpoints;
-        visualHitpoints.text = hitpoints.ToString();
+        int startingHitPoints = Random.Range(1, (int)(5 * currentRound));
+        hitPoints = startingHitPoints;
+        visualHitpoints.text = startingHitPoints.ToString();
     }
 
     public void Hit()
     {
-        _hitpoints--;
+        hitPoints--;
+
+        if (hitPoints <= 0)
+        {
+            GameManager.Instance.BoxDestroyed(this);
+            this.gameObject.SetActive(false);
+        }
+
+        visualHitpoints.text = hitPoints.ToString();
     }
 }

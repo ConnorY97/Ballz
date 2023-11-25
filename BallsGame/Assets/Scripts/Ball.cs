@@ -13,8 +13,10 @@ public class Ball : MonoBehaviour
             {
                 tmp.Hit();
             }
-
-            Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.tag == "Base")
+        {
+            GameManager.Instance.TouchedBase(this);
         }
     }
 }
