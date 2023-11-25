@@ -237,5 +237,7 @@ public class GameManager : MonoBehaviour
         }
         balls.Clear();
         boxes.Clear();
+
+        SpawnBall();
     }
 }
