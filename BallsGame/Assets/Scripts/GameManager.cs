@@ -105,6 +105,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CleanUp();
+        }
+
         roundCounterUI.text = RoundCounter.ToString();
     }
 
@@ -125,6 +130,10 @@ public class GameManager : MonoBehaviour
                 boxes.Add(box);
             }
         }
+        if (boxes.Count ==  0)
+        {
+            SpawnBox();
+        }
     }
 
     public void MoveBox()
@@ -133,6 +142,11 @@ public class GameManager : MonoBehaviour
         {
             boxes[i].transform.position = new Vector2(boxes[i].transform.position.x, boxes[i].transform.position.y - cellSize);
             boxes[i].row += 1;
+
+            if (boxes[i].transform.position.y >= ballSpawn.transform.position.y)
+            {
+                Debug.Log("Game Over");
+            }
         }
         SpawnBox();
     }
@@ -203,8 +217,29 @@ public class GameManager : MonoBehaviour
         if (ballsShot == 0)
         {
             isShooting = false;
-            SpawnBox();
+            MoveBox();
             RoundCounter++;
         }
     }
+
+    private void OnDestroy()
+    {
+        CleanUp();
+    }
+
+    private void CleanUp()
+    {
+        foreach (var box in boxes)
+        {
+            Destroy(box.gameObject);
+        }
+        foreach (var ball in balls)
+        {
+            Destroy(ball.gameObject);
+        }
+        balls.Clear();
+        boxes.Clear();
+    }
+
+
 }

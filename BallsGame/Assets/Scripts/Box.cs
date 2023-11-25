@@ -14,7 +14,7 @@ public class Box : MonoBehaviour
 
     public void Init(float currentRound)
     {
-        int startingHitPoints = Random.Range(1, (int)(5 * currentRound));
+        int startingHitPoints = Random.Range((int)(1 + currentRound), (int)(5 * currentRound));
         hitPoints = startingHitPoints;
         visualHitpoints.text = startingHitPoints.ToString();
     }
@@ -26,7 +26,7 @@ public class Box : MonoBehaviour
         if (hitPoints <= 0)
         {
             GameManager.Instance.BoxDestroyed(this);
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
 
         visualHitpoints.text = hitPoints.ToString();

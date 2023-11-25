@@ -19,4 +19,9 @@ public class Ball : MonoBehaviour
             GameManager.Instance.TouchedBase(this);
         }
     }
+
+    private void OnDestroy()
+    {
+        Destroy(gameObject);
+    }
 }
