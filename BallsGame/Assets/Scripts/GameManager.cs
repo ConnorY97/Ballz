@@ -31,11 +31,9 @@ public class GameManager : MonoBehaviour
     public Camera mainCamera;
     public Box boxPrefab;
 
-    private List<Box> spawnRow = new List<Box>();
-
     //Private varaibles-----------------------
-    private int _roundCounter = 0;
-    public List<Box> boxes = new List<Box>();
+    [SerializeField]
+    private List<Box> boxes = new List<Box>();
 
     // Ball stuff
     public GameObject ballSpawn;
@@ -47,6 +45,7 @@ public class GameManager : MonoBehaviour
     private Vector3 dragPos = Vector3.zero;
     private Vector3 shootDir = Vector3.zero;
     private float shootForce = 0.0f;
+
     public LineRenderer drag;
     public float multiplyier = 100.0f;
     private int ballz = 10;
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     int ballsShot = 0;
 
-    public int RoundCounter = 0;
+    private int RoundCounter = 1;
     public TMP_Text roundCounterUI;
 
     private void Start()
@@ -72,7 +71,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ++_roundCounter;
+            RoundCounter++;
             MoveBox();
         }
 
@@ -116,7 +115,7 @@ public class GameManager : MonoBehaviour
     public void SpawnBox()
     {
         int amountToSpawn = Random.Range(1, cols + 1);
-
+        int currentCount = boxes.Count;
         for (int i = 0; i < amountToSpawn; i++)
         {
             int spawnChance = Random.Range(0, 10);
@@ -130,7 +129,7 @@ public class GameManager : MonoBehaviour
                 boxes.Add(box);
             }
         }
-        if (boxes.Count ==  0)
+        if (boxes.Count ==  0 || currentCount == boxes.Count())
         {
             SpawnBox();
         }
@@ -143,7 +142,7 @@ public class GameManager : MonoBehaviour
             boxes[i].transform.position = new Vector2(boxes[i].transform.position.x, boxes[i].transform.position.y - cellSize);
             boxes[i].row += 1;
 
-            if (boxes[i].transform.position.y >= ballSpawn.transform.position.y)
+            if (boxes[i].transform.position.y <= ballSpawn.transform.position.y)
             {
                 Debug.Log("Game Over");
             }
@@ -240,6 +239,4 @@ public class GameManager : MonoBehaviour
         balls.Clear();
         boxes.Clear();
     }
-
-
 }

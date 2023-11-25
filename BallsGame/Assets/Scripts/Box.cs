@@ -12,9 +12,9 @@ public class Box : MonoBehaviour
 
     private int hitPoints;
 
-    public void Init(float currentRound)
+    public void Init(int currentRound)
     {
-        int startingHitPoints = Random.Range((int)(1 + currentRound), (int)(5 * currentRound));
+        int startingHitPoints = Random.Range(currentRound, 5 * currentRound);
         hitPoints = startingHitPoints;
         visualHitpoints.text = startingHitPoints.ToString();
     }
