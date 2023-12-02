@@ -1,34 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Box : MonoBehaviour
+public class Box : BaseSpawnable
 {
-    public TextMeshProUGUI visualHitpoints;
-
-    public int row;
-    public int col;
-
-    private int hitPoints;
-
-    public void Init(int currentRound)
+    public override void Init(int currentRound)
     {
-        int startingHitPoints = Random.Range(currentRound, 5 * currentRound);
-        hitPoints = startingHitPoints;
-        visualHitpoints.text = startingHitPoints.ToString();
+        base.Init();
+
+        objectValue = Random.Range(currentRound, 5 * currentRound);
+        uiObject.text = objectValue.ToString();
+
+        if (objectValue < 5)
+        {
+            spriteRenderer.color = Color.green;
+        }
+        else
+        {
+            spriteRenderer.color = Color.red;
+        }
     }
 
-    public void Hit()
+    public override void Hit()
     {
-        hitPoints--;
+        objectValue--;
 
-        if (hitPoints <= 0)
+        if (objectValue <= 0)
         {
-            GameManager.Instance.BoxDestroyed(this);
+            GameManager.Instance.SpawnableDestroyed(this);
             Destroy(this.gameObject);
         }
 
-        visualHitpoints.text = hitPoints.ToString();
+        uiObject.text = objectValue.ToString();
+
+        if (objectValue < 5)
+        {
+            spriteRenderer.color = Color.green;
+        }
+        else
+        {
+            spriteRenderer.color = Color.red;
+        }
     }
 }

@@ -6,17 +6,27 @@ public class Ball : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Box")
+        switch (collision.gameObject.tag)
         {
-            Box tmp = collision.gameObject.GetComponent<Box>();
-            if (tmp != null)
-            {
-                tmp.Hit();
-            }
-        }
-        else if (collision.gameObject.tag == "Base")
-        {
-            GameManager.Instance.TouchedBase(this);
+            case "Box":
+                Box box = collision.gameObject.GetComponent<Box>();
+                if (box != null)
+                {
+                    box.Hit();
+                }
+                break;
+            case "Base":
+                GameManager.Instance.TouchedBase(this);
+                break;
+            case "Star":
+                Star star = collision.gameObject.GetComponent<Star>();
+                if (star != null)
+                {
+                    star.Hit();
+                }
+                break;
+            default:
+                break;
         }
     }
 

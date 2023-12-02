@@ -331,15 +331,17 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   boxPrefab: {fileID: 742963690880164822, guid: e41849444a42b6b40aaa4df1b38b0725,
     type: 3}
-  boxes: []
+  spawnObjects: []
   ballSpawn: {fileID: 1662082383}
   ballPrefab: {fileID: 5097904755712417579, guid: a6bd1847f02ea5140b3da88982391780,
     type: 3}
   gravityMultipler: 0.75
+  ballSpawnAmount: 10
   drag: {fileID: 884394245}
   multiplyier: 250
-  balls: []
   roundCounterUI: {fileID: 1631879008}
+  starPrefab: {fileID: 3517094671432267038, guid: 56d15eb56be0aa24f953046d36f04b10,
+    type: 3}
 --- !u!120 &884394245
 LineRenderer:
   serializedVersion: 2

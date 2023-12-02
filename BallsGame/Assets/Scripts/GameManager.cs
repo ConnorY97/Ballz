@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Inspector variables----------------------
+    // Inspector values--------------------------
+    [Header("Game values")]
     public int rows;
     public int cols;
     public float cellSize;
@@ -31,37 +32,43 @@ public class GameManager : MonoBehaviour
     public Camera mainCamera;
     public Box boxPrefab;
 
-    //Private varaibles-----------------------
+    // Box values--------------------------------
     [SerializeField]
-    private List<Box> boxes = new List<Box>();
+    private List<BaseSpawnable> spawnObjects = new List<BaseSpawnable>();
 
-    // Ball stuff
+    // Ball values-------------------------------
+    [Header("Ball values")]
     public GameObject ballSpawn;
     public Ball ballPrefab;
     public float gravityMultipler = 0.75f;
+    public int ballSpawnAmount = 10;
 
-    // Click stuff
+    private List<Ball> balls = new List<Ball>();
+    private bool isShooting = false;
+    private int ballsShot = 0;
+
+
+    // Click values------------------------------
+    [Header("Shoot values")]
+    public LineRenderer drag;
+    public float multiplyier = 100.0f;
+
     private Vector3 clickPos = Vector3.zero;
     private Vector3 dragPos = Vector3.zero;
     private Vector3 shootDir = Vector3.zero;
     private float shootForce = 0.0f;
 
-    public LineRenderer drag;
-    public float multiplyier = 100.0f;
-    private int ballz = 10;
-
-    public List<Ball> balls = new List<Ball>();
-
-    private bool isShooting = false;
-
-    int ballsShot = 0;
-
+    // Game manager values-----------------------
     private int RoundCounter = 1;
     public TMP_Text roundCounterUI;
 
+    // Star values-------------------------------
+    public Star starPrefab;
+
+
     private void Start()
     {
-        SpawnBox();
+        SpwanSpawnable();
         SpawnBall();
         drag.SetPosition(0, ballSpawn.transform.position);
         drag.SetPosition(1, ballSpawn.transform.position);
@@ -72,7 +79,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             RoundCounter++;
-            MoveBox();
+            Move();
         }
 
         if (!isShooting)
@@ -112,55 +119,78 @@ public class GameManager : MonoBehaviour
         roundCounterUI.text = RoundCounter.ToString();
     }
 
-    public void SpawnBox()
+    public void SpwanSpawnable()
     {
-        int currentCount = boxes.Count;
-        for (int i = 0; i < cols; i++)
+        if (boxPrefab != null && starPrefab != null)
         {
-            int spawnChance = Random.Range(0, 10);
-            if (spawnChance < 3)
+            for (int i = 0; i < cols; i++)
             {
-                Box box = Instantiate(boxPrefab, transform);
-                box.Init(RoundCounter);
-                box.transform.position = new Vector2(transform.position.x + (i * (cellSize + xSpacing)), transform.position.y);
-                box.col = i;
-                box.row = 0;
-                boxes.Add(box);
+                int spawnChance = Random.Range(0, 10);
+                if (spawnChance < 3)
+                {
+                    Box box = Instantiate(boxPrefab, transform);
+                    box.Init(RoundCounter);
+                    box.transform.position = new Vector2(transform.position.x + (i * (cellSize + xSpacing)), transform.position.y);
+                    box.Col = i;
+                    box.Row = 0;
+                    spawnObjects.Add(box);
+                    continue;
+                }
+                else if (spawnChance > 8)
+                {
+                    Star star = Instantiate(starPrefab, transform);
+                    star.Init();
+                    star.transform.position = new Vector2(transform.position.x + (i * (cellSize + xSpacing)), transform.position.y);
+                    star.Col = i;
+                    star.Row = 0;
+                    spawnObjects.Add(star);
+                    continue;
+                }
+            }
+            if (spawnObjects.Count == 0)
+            {
+                SpwanSpawnable();
             }
         }
-        if (boxes.Count ==  0)// || currentCount == boxes.Count())
+        else
         {
-            SpawnBox();
+            Debug.Log("Missing prefabs");
         }
     }
 
-    public void MoveBox()
+    public void Move()
     {
-        for (int i = 0; i < boxes.Count; i++)
+        if (spawnObjects.Count != 0)
         {
-            boxes[i].transform.position = new Vector2(boxes[i].transform.position.x, boxes[i].transform.position.y - cellSize);
-            boxes[i].row += 1;
-
-            if (boxes[i].transform.position.y <= ballSpawn.transform.position.y)
+            for (int i = 0; i < spawnObjects.Count; i++)
             {
-                Debug.Log("Game Over");
+                spawnObjects[i].transform.position = new Vector2(spawnObjects[i].transform.position.x, spawnObjects[i].transform.position.y - cellSize);
+                spawnObjects[i].Row += 1;
+
+                if (spawnObjects[i].transform.position.y <= ballSpawn.transform.position.y)
+                {
+                    Debug.Log("Game Over");
+                }
             }
         }
-        SpawnBox();
+        SpwanSpawnable();
     }
 
     public void SpawnBall()
     {
-        for(int i = 0;i < ballz ;i++)
+        if (ballPrefab != null && ballSpawn != null)
         {
-            Ball ball = Instantiate(ballPrefab, transform);
-            ball.transform.position = ballSpawn.transform.position;
-            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-            CircleCollider2D coll = ball.GetComponent<CircleCollider2D>();
-            coll.isTrigger = true;
-            rb.gravityScale = 0;
-            rb.Sleep();
-            balls.Add(ball);
+            for (int i = 0; i < ballSpawnAmount; i++)
+            {
+                Ball ball = Instantiate(ballPrefab, transform);
+                ball.transform.position = ballSpawn.transform.position;
+                Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+                CircleCollider2D coll = ball.GetComponent<CircleCollider2D>();
+                coll.isTrigger = true;
+                rb.gravityScale = 0;
+                rb.Sleep();
+                balls.Add(ball);
+            }
         }
     }
 
@@ -195,9 +225,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BoxDestroyed(Box killed)
+    public void SpawnableDestroyed(BaseSpawnable killed)
     {
-        boxes.Remove(killed);
+        spawnObjects.Remove(killed);
     }
 
     public void TouchedBase(Ball ballToReturn)
@@ -215,7 +245,7 @@ public class GameManager : MonoBehaviour
         if (ballsShot == 0)
         {
             isShooting = false;
-            MoveBox();
+            Move();
             RoundCounter++;
         }
     }
@@ -227,7 +257,7 @@ public class GameManager : MonoBehaviour
 
     private void CleanUp()
     {
-        foreach (var box in boxes)
+        foreach (var box in spawnObjects)
         {
             Destroy(box.gameObject);
         }
@@ -236,7 +266,14 @@ public class GameManager : MonoBehaviour
             Destroy(ball.gameObject);
         }
         balls.Clear();
-        boxes.Clear();
+        spawnObjects.Clear();
+
+        SpawnBall();
+    }
+
+    public void AddBalls(int amount)
+    {
+        ballSpawnAmount = amount;
 
         SpawnBall();
     }
