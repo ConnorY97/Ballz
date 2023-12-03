@@ -19,6 +19,13 @@ public class Ball : MonoBehaviour
     }
 
     private bool shot = false;
+
+    private float minVelocity;
+
+    public void Init(float velocity)
+    {
+        minVelocity = velocity;
+    }
     public bool Shot
     {
         get { return shot; }
@@ -58,6 +65,6 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-
+        rb.velocity = rb.velocity.normalized * minVelocity;
     }
 }

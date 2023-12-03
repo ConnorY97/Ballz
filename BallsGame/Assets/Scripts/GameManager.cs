@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SpwanSpawnable();
+        SpawnSpawnable();
         SpawnBall();
         drag.SetPosition(0, ballSpawn.transform.position);
         drag.SetPosition(1, ballSpawn.transform.position);
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         roundCounterUI.text = RoundCounter.ToString();
     }
 
-    public void SpwanSpawnable()
+    public void SpawnSpawnable()
     {
         if (boxPrefab != null && starPrefab != null)
         {
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
             }
             if (spawnObjects.Count == 0)
             {
-                SpwanSpawnable();
+                SpawnSpawnable();
             }
         }
         else
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        SpwanSpawnable();
+        SpawnSpawnable();
     }
 
     public void SpawnBall()
@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < ballSpawnAmount; i++)
             {
                 Ball ball = Instantiate(ballPrefab, transform);
+                ball.Init(minBallVelocity);
                 ball.transform.position = ballSpawn.transform.position;
                 ball.Collder.isTrigger = true;
                 ball.Rigidbody.gravityScale = 0;
@@ -249,6 +250,7 @@ public class GameManager : MonoBehaviour
         {
             isShooting = false;
             Move();
+            SpawnBall();
             RoundCounter++;
             first = true;
         }
@@ -278,7 +280,5 @@ public class GameManager : MonoBehaviour
     public void AddBalls(int amount)
     {
         ballSpawnAmount = amount;
-
-        SpawnBall();
     }
 }
