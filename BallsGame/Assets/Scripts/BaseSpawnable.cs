@@ -9,6 +9,14 @@ public class BaseSpawnable : MonoBehaviour
     [SerializeField]
     protected SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    protected Rigidbody2D rb;
+
+    public Rigidbody2D Rigidbody
+    {
+        get { return rb; }
+    }
+
     private int row;
     public int Row
     {

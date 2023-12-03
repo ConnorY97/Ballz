@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6095525040581320051}
   - component: {fileID: 2134394488249459483}
-  - component: {fileID: 7740261159093912600}
   - component: {fileID: 5097904755712417579}
+  - component: {fileID: 7740261159093912600}
   - component: {fileID: 7022533444138154354}
   m_Layer: 6
   m_Name: Ballz
@@ -87,6 +87,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5097904755712417579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763108432008023086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714449dcdc763db46b6f7e8647d33090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 7022533444138154354}
+  coll: {fileID: 7740261159093912600}
 --- !u!58 &7740261159093912600
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -122,18 +136,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.19
---- !u!114 &5097904755712417579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6763108432008023086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 714449dcdc763db46b6f7e8647d33090, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &7022533444138154354
 Rigidbody2D:
   serializedVersion: 4

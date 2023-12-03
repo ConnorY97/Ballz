@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public float xSpacing;
     public Camera mainCamera;
     public Box boxPrefab;
+    public float minBallVelocity = 100;
 
     // Box values--------------------------------
     [SerializeField]
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
     public GameObject ballSpawn;
     public Ball ballPrefab;
     public float gravityMultipler = 0.75f;
-    public int ballSpawnAmount = 10;
+    public int ballSpawnAmount = 1;
 
     private List<Ball> balls = new List<Ball>();
     private bool isShooting = false;
@@ -65,7 +66,6 @@ public class GameManager : MonoBehaviour
 
     // Star values-------------------------------
     public Star starPrefab;
-
 
     private void Start()
     {
@@ -185,11 +185,9 @@ public class GameManager : MonoBehaviour
             {
                 Ball ball = Instantiate(ballPrefab, transform);
                 ball.transform.position = ballSpawn.transform.position;
-                Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-                CircleCollider2D coll = ball.GetComponent<CircleCollider2D>();
-                coll.isTrigger = true;
-                rb.gravityScale = 0;
-                rb.Sleep();
+                ball.Collder.isTrigger = true;
+                ball.Rigidbody.gravityScale = 0;
+                ball.Rigidbody.Sleep();
                 balls.Add(ball);
             }
         }
@@ -207,14 +205,12 @@ public class GameManager : MonoBehaviour
             isShooting = true;
             for (int i = 0; i < balls.Count; i++)
             {
-                Rigidbody2D rb = balls[i].GetComponent<Rigidbody2D>();
-                CircleCollider2D coll = balls[i].GetComponent<CircleCollider2D>();
-                if (rb != null)
+                if (balls[i].Rigidbody != null)
                 {
-                    coll.isTrigger = false;
-                    rb.WakeUp();
-                    rb.gravityScale = gravityMultipler;
-                    rb.AddForce((dir * force) * multiplyier);
+                    balls[i].Collder.isTrigger = false;
+                    balls[i].Rigidbody.WakeUp();
+                    balls[i].Rigidbody.gravityScale = gravityMultipler;
+                    balls[i].Rigidbody.AddForce(dir * force * multiplyier);
                     ballsShot++;
                 }
                 else
@@ -234,20 +230,18 @@ public class GameManager : MonoBehaviour
     public void TouchedBase(Ball ballToReturn)
     {
         // This is the first ball to touch the base.
-        //  so we want to reset the spawn position to provide new angle
+        //  So we want to reset the spawn position to provide new angle.
         if (first)
         {
             first = false;
-            ballSpawn.transform.position = ballToReturn.transform.position;
+            // Make sure that the height of the spawn is maintained.
+            ballSpawn.transform.position = new Vector3(ballToReturn.transform.position.x, ballSpawn.transform.position.y, ballToReturn.transform.position.z);
         }
 
-        Rigidbody2D rb = ballToReturn.GetComponent<Rigidbody2D>();
-        CircleCollider2D coll = ballToReturn.GetComponent<CircleCollider2D>();
-
-        rb.Sleep();
-        coll.isTrigger = true;
-        rb.velocity = Vector3.zero;
-        rb.gravityScale = 0;
+        ballToReturn.Rigidbody.Sleep();
+        ballToReturn.Collder.isTrigger = true;
+        ballToReturn.Rigidbody.velocity = Vector3.zero;
+        ballToReturn.Rigidbody.gravityScale = 0;
         ballToReturn.transform.position = ballSpawn.transform.position;
         ballsShot--;
 

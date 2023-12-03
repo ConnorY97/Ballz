@@ -4,6 +4,27 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField]
+    private Rigidbody2D rb;
+    public Rigidbody2D Rigidbody
+    {
+        get { return rb; }
+    }
+
+    [SerializeField]
+    private CircleCollider2D coll;
+    public CircleCollider2D Collder
+    {
+        get { return coll; }
+    }
+
+    private bool shot = false;
+    public bool Shot
+    {
+        get { return shot; }
+        set { shot = value; }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         switch (collision.gameObject.tag)
@@ -33,5 +54,10 @@ public class Ball : MonoBehaviour
     private void OnDestroy()
     {
         Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+
     }
 }
