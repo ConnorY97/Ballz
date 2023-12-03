@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,12 +42,14 @@ public class GameManager : MonoBehaviour
     [Header("Ball values")]
     public GameObject ballSpawn;
     public Ball ballPrefab;
+    public TMP_Text uiCurrentBallCount;
     public float gravityMultipler = 0.75f;
     public int ballSpawnAmount = 1;
 
     private List<Ball> balls = new List<Ball>();
     private bool isShooting = false;
     private int ballsShot = 0;
+    private int ballsShotAmount = 0;
     private bool first = true;
 
 
@@ -69,6 +72,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        ballsShotAmount = ballSpawnAmount;
+
         SpawnSpawnable();
         SpawnBall();
         drag.SetPosition(0, ballSpawn.transform.position);
@@ -118,6 +123,8 @@ public class GameManager : MonoBehaviour
         }
 
         roundCounterUI.text = RoundCounter.ToString();
+
+        uiCurrentBallCount.text = ballsShotAmount.ToString();
     }
 
     public void SpawnSpawnable()
@@ -203,6 +210,7 @@ public class GameManager : MonoBehaviour
         if (dir != Vector3.zero || force != 0f)
         {
             isShooting = true;
+            ballsShotAmount = balls.Count;
             for (int i = 0; i < balls.Count; i++)
             {
                 if (balls[i].Rigidbody != null)
@@ -211,7 +219,9 @@ public class GameManager : MonoBehaviour
                     balls[i].Rigidbody.WakeUp();
                     balls[i].CurrentGravity = gravityMultipler;
                     balls[i].Rigidbody.AddForce(dir * force * multiplyier);
+                    balls[i].Shot = true;
                     ballsShot++;
+                    ballsShotAmount--;
                 }
                 else
                 {
@@ -242,7 +252,10 @@ public class GameManager : MonoBehaviour
         ballToReturn.Collder.isTrigger = true;
         ballToReturn.Rigidbody.velocity = Vector3.zero;
         ballToReturn.transform.position = ballSpawn.transform.position;
+        ballToReturn.Shot = false;
         ballsShot--;
+
+        ballsShotAmount++;
 
         if (ballsShot == 0)
         {
