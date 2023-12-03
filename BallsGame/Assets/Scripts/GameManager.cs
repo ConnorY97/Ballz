@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     private List<Ball> balls = new List<Ball>();
     private bool isShooting = false;
     private int ballsShot = 0;
+    private bool first = true;
 
 
     // Click values------------------------------
@@ -232,6 +233,14 @@ public class GameManager : MonoBehaviour
 
     public void TouchedBase(Ball ballToReturn)
     {
+        // This is the first ball to touch the base.
+        //  so we want to reset the spawn position to provide new angle
+        if (first)
+        {
+            first = false;
+            ballSpawn.transform.position = ballToReturn.transform.position;
+        }
+
         Rigidbody2D rb = ballToReturn.GetComponent<Rigidbody2D>();
         CircleCollider2D coll = ballToReturn.GetComponent<CircleCollider2D>();
 
@@ -247,6 +256,7 @@ public class GameManager : MonoBehaviour
             isShooting = false;
             Move();
             RoundCounter++;
+            first = true;
         }
     }
 
