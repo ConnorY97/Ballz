@@ -331,7 +331,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   boxPrefab: {fileID: 742963690880164822, guid: e41849444a42b6b40aaa4df1b38b0725,
     type: 3}
-  minBallVelocity: 100
+  minBallVelocity: 25
   spawnObjects: []
   ballSpawn: {fileID: 1662082383}
   ballPrefab: {fileID: 5097904755712417579, guid: a6bd1847f02ea5140b3da88982391780,

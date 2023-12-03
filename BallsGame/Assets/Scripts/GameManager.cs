@@ -187,7 +187,6 @@ public class GameManager : MonoBehaviour
                 ball.Init(minBallVelocity);
                 ball.transform.position = ballSpawn.transform.position;
                 ball.Collder.isTrigger = true;
-                ball.Rigidbody.gravityScale = 0;
                 ball.Rigidbody.Sleep();
                 balls.Add(ball);
             }
@@ -210,7 +209,7 @@ public class GameManager : MonoBehaviour
                 {
                     balls[i].Collder.isTrigger = false;
                     balls[i].Rigidbody.WakeUp();
-                    balls[i].Rigidbody.gravityScale = gravityMultipler;
+                    balls[i].CurrentGravity = gravityMultipler;
                     balls[i].Rigidbody.AddForce(dir * force * multiplyier);
                     ballsShot++;
                 }
@@ -242,7 +241,6 @@ public class GameManager : MonoBehaviour
         ballToReturn.Rigidbody.Sleep();
         ballToReturn.Collder.isTrigger = true;
         ballToReturn.Rigidbody.velocity = Vector3.zero;
-        ballToReturn.Rigidbody.gravityScale = 0;
         ballToReturn.transform.position = ballSpawn.transform.position;
         ballsShot--;
 

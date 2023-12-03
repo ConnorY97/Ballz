@@ -22,6 +22,13 @@ public class Ball : MonoBehaviour
 
     private float minVelocity;
 
+    private float currentGravity = 0.75f;
+    public float CurrentGravity
+    {
+        get { return currentGravity; }
+        set { currentGravity = value; }
+    }
+
     public void Init(float velocity)
     {
         minVelocity = velocity;
@@ -45,6 +52,7 @@ public class Ball : MonoBehaviour
                 break;
             case "Base":
                 GameManager.Instance.TouchedBase(this);
+                rb.gravityScale = 0;
                 break;
             case "Star":
                 Star star = collision.gameObject.GetComponent<Star>();
@@ -66,5 +74,10 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         rb.velocity = rb.velocity.normalized * minVelocity;
+
+        if (shot)
+        {
+            rb.gravityScale = currentGravity;
+        }
     }
 }
