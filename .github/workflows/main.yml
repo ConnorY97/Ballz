@@ -14,8 +14,6 @@ jobs:
           - StandaloneWindows64
         projectName:
           - Ballz
-        projectPath:
-          - ./
     steps:
       #Checking out the repo
       - name: Checkout repo
@@ -42,7 +40,6 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: ${{ matrix.unityVersion }}
-          projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: UnityBuilderAction.BuildScript.Build
 
