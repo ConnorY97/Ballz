@@ -1,39 +1,54 @@
-name: Build
-
-on: [push, pull_request]
+name: Build Action
+on:
+  push
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
-    
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2022.3.6f1
+        targetPlatform:
+          - StandaloneWindows64
+        projectName:
+          - Ballz
+        projectPath:
+          - ./
     steps:
-      # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      #Checking out the repo
+      - name: Checkout repo
+        uses: actions/checkout@v2
         with:
-          lfs: true
+          lfs: false
 
-      # Cache
-      - uses: actions/cache@v3
+      #Testing if caching is working
+      - name: run
+        run: ls
+
+      #Caching
+      - name: Caching
+        uses: actions/cache@v2
         with:
           path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-${{ matrix.targetPlatform }}
 
-      # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v4
+      #Making the build.
+      - name: Unity Builder
+        uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: StandaloneWindows64
+          unityVersion: ${{ matrix.unityVersion }}
+          projectPath: ${{ matrix.projectPath }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildMethod: UnityBuilderAction.BuildScript.Build
 
-      # Output
-      - uses: actions/upload-artifact@v3
+      #Uploading the build to github.
+      - name: Uploading the build
+        uses: actions/upload-artifact@v2
         with:
           name: Build
           path: build
