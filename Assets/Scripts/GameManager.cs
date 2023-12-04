@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         ballsShotAmount = ballSpawnAmount;
 
         SpawnSpawnable();
-        SpawnBall();
+        SpawnBall(ballSpawnAmount);
         drag.SetPosition(0, ballSpawn.transform.position);
         drag.SetPosition(1, ballSpawn.transform.position);
     }
@@ -184,11 +184,11 @@ public class GameManager : MonoBehaviour
         SpawnSpawnable();
     }
 
-    public void SpawnBall()
+    public void SpawnBall(int amountToSpawn)
     {
         if (ballPrefab != null && ballSpawn != null)
         {
-            for (int i = 0; i < ballSpawnAmount; i++)
+            for (int i = 0; i < amountToSpawn; i++)
             {
                 Ball ball = Instantiate(ballPrefab, transform);
                 ball.Init(minBallVelocity);
@@ -261,9 +261,13 @@ public class GameManager : MonoBehaviour
         {
             isShooting = false;
             Move();
-            SpawnBall();
             RoundCounter++;
             first = true;
+            if (balls.Count != ballSpawnAmount)
+            {
+                SpawnBall(ballSpawnAmount - balls.Count);
+                uiCurrentBallCount.text = ballsShotAmount.ToString();
+            }
         }
     }
 
@@ -285,11 +289,11 @@ public class GameManager : MonoBehaviour
         balls.Clear();
         spawnObjects.Clear();
 
-        SpawnBall();
+        SpawnBall(ballSpawnAmount);
     }
 
     public void AddBalls(int amount)
     {
-        ballSpawnAmount = amount;
+        ballSpawnAmount += amount;
     }
 }
