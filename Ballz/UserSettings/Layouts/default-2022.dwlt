@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 110
+  controlID: 80
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -295,8 +295,8 @@ MonoBehaviour:
     y: 0
     width: 375
     height: 743
-  m_MinSize: {x: 275, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 18}
@@ -936,7 +936,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -944,15 +944,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\Connor Young\Documents\Personal Projects\Ballz
+  m_LastProjectPath: C:\Users\Connor Young\Documents\Personal Projects\Ballz\Ballz
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 94060000
-    m_LastClickedID: 1684
+    m_SelectedIDs: e4050000
+    m_LastClickedID: 1508
     m_ExpandedIDs: 00000000e4050000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000aea20000d48a0000a4e90000ac100700801107005a80040034cc2b008ccf2b0084cf2b004acd00006cb70a003e4d0c008c500c00e24c0100dae10400c8280a00ae67000012ff0000e0890700
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1075,9 +1075,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 4c650000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: ae7bffff2c7effff
+      m_ExpandedIDs: 2c7effff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
