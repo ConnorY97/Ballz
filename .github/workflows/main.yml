@@ -47,7 +47,6 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          buildMethod: UnityBuilderAction.BuildScript.Build
 
       #Uploading the build to github.
       - name: Uploading the build
