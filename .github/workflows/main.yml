@@ -17,9 +17,6 @@ jobs:
         projectPath:
           - ./Ballz
     steps:
-      - name: Unity - Activate
-        uses: game-ci/unity-activate@v2.0.0
-            
       #Checking out the repo
       - name: Checkout repo
         uses: actions/checkout@v4
