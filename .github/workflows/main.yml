@@ -1,7 +1,9 @@
 name: Build Action
 on:
-  push
-
+  push:
+    branches:
+      - 'build'
+      
 jobs:
   build-project:
     name: Build Project
