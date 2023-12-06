@@ -23,9 +23,6 @@ jobs:
         with:
           lfs: false
 
-      - name: Check Cache
-        run: ls
-
       - name: Caching
         uses: actions/cache@v3
         with:
@@ -50,10 +47,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Build
-          path: .build/
+          path: build
 
-  release-project:
-      name: Release Project
+  download-project:
+      name: Download Project
       runs-on: ubuntu-latest
       needs: build-project
       steps:
@@ -64,6 +61,11 @@ jobs:
       - name: Test Artifact Download
         run: ls -R
 
+  release-project:
+      name: Release Project
+      runs-on: ubuntu-latest
+      needs: download-project
+      steps:
       - name: Uploading to itch.io
         uses: manleydev/butler-publish-itchio-action@master
         env:
@@ -71,4 +73,4 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: ballz
           ITCH_USER: ConnorY97
-          PACKAGE: .build/Build
+          PACKAGE: build/Build
