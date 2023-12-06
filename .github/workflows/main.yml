@@ -12,6 +12,7 @@ jobs:
           - 2022.3.6f1
         targetPlatform:
           - WebGL
+          - StandaloneWindows64
         projectName:
           - Ballz
         projectPath:
@@ -33,8 +34,8 @@ jobs:
         with:
           path: ${{ matrix.projectPath }}/Library
           key:
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{
-            hashFiles(matrix.projectPath) }}
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectPath) }}
+            Library-
 
       #Making the build.
       - name: Unity Builder
@@ -53,9 +54,9 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: windows
-          ITCH_GAME: https://connory97.itch.io/ballz
+          ITCH_GAME: ballz
           ITCH_USER: ConnorY97
-          PACKAGE: build/WebGL
+          PACKAGE: build/windows
 
       #Uploading the build to github.
       #- name: Uploading the build
