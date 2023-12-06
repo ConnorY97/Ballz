@@ -52,11 +52,11 @@ jobs:
       - uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: html5
+          CHANNEL: windows
           ITCH_GAME: https://connory97.itch.io/ballz
           ITCH_USER: ConnorY97
           PACKAGE: build/WebGL
-          
+
       #Uploading the build to github.
       #- name: Uploading the build
       #  uses: actions/upload-artifact@v3
