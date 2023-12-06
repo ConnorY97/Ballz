@@ -32,9 +32,9 @@ jobs:
       - name: Caching
         uses: actions/cache@v3
         with:
-          path: ${{ matrix.projectPath }}/Library
-          key:
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectPath) }}
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
             Library-
 
       #Making the build.
