@@ -12,7 +12,7 @@ jobs:
         unityVersion:
           - 2022.3.6f1
         targetPlatform:
-          - StandaloneWindows64
+          - WebGL
         projectName:
           - Ballz
         projectPath:
