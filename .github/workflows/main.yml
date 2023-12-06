@@ -2,8 +2,8 @@ name: Build Action
 on:
   push:
     branches:
-      - 'build'
-      
+      - 'Build'
+
 jobs:
   build-project:
     name: Build Project
