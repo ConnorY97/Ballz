@@ -11,7 +11,6 @@ jobs:
         unityVersion:
           - 2022.3.6f1
         targetPlatform:
-          - WebGL
           - StandaloneWindows64
         projectName:
           - Ballz
@@ -32,9 +31,10 @@ jobs:
       - name: Caching
         uses: actions/cache@v3
         with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          path: ./Ballz/Library
+          key: Library-${{matrix.projectName}}-${{matrix.targetPlatform}}
           restore-keys: |
+            Library-${{matrix.projectName}}-
             Library-
 
       #Making the build.
@@ -49,20 +49,23 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
 
+      #Uploading the build to github.
+      - name: Uploading the build
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build
+          path: build
+
       #Submitting to itch.io
-      - uses: josephbmanley/butler-publish-itchio-action@master
+      - name: Uploading to itch.io
+        uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: windows
           ITCH_GAME: ballz
           ITCH_USER: ConnorY97
-          PACKAGE: build/windows
+          PACKAGE: Build/Build
 
-      #Uploading the build to github.
-      #- name: Uploading the build
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: Build
-      #    path: build
+
 
       
