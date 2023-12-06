@@ -49,6 +49,9 @@ jobs:
           name: Build
           path: build
 
+      - name: Test Artifact Download
+      run: ls -R
+
   download-project:
       name: Download Project
       runs-on: ubuntu-latest
@@ -71,4 +74,4 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: ballz
           ITCH_USER: ConnorY97
-          PACKAGE: /home/runner/work/Ballz/Ballz
+          PACKAGE: /home/runner/work/Ballz/Ballz/Build/WebGL
