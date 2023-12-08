@@ -324,9 +324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b213bcdaf7badd94a9b7e613918a0768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 10
-  cols: 7
-  cellSize: 0.55
+  rows: 8
+  cols: 6
+  cellSize: 0.6
   xSpacing: 0
   mainCamera: {fileID: 519420031}
   boxPrefab: {fileID: 742963690880164822, guid: e41849444a42b6b40aaa4df1b38b0725,
