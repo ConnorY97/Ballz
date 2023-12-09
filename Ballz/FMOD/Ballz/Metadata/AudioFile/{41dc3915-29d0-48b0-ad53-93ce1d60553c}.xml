@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{41dc3915-29d0-48b0-ad53-93ce1d60553c}">
+		<property name="assetPath">
+			<value>chillAbstract.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>88.032653061224494</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{79413370-0191-4699-8c21-13506edba4ee}</destination>
+		</relationship>
+	</object>
+</objects>

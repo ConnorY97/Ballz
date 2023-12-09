@@ -15,12 +15,12 @@ MonoBehaviour:
   Path: FMOD/Ballz/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638376726320702437
+  lastModified: 638377376039906465
   FileSizes:
   - Name: Desktop
-    Value: 2247104
+    Value: 5885024
   Exists: 1
---- !u!114 &-985780711654762064
+--- !u!114 &-2120466337121383354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30,9 +30,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Henry Mancini - Baby Elephant Walk
+  m_Name: event:/BGM
   m_EditorClassIdentifier: 
-  Path: event:/Henry Mancini - Baby Elephant Walk
+  Path: event:/BGM
   Guid:
     Data1: 1669586132
     Data2: 1102236050
@@ -42,11 +42,11 @@ MonoBehaviour:
   - {fileID: -7613015027234261914}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 161332
+  Length: 20000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,13 +64,13 @@ MonoBehaviour:
   - {fileID: 2697884407516376984}
   - {fileID: -7613015027234261914}
   EditorEvents:
-  - {fileID: -985780711654762064}
+  - {fileID: -2120466337121383354}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2697884407516376984}
   StringsBanks:
   - {fileID: 2216518572411229892}
-  cacheTime: 638376726320702437
+  cacheTime: 638377376039906465
   cacheVersion: 131609
 --- !u!114 &2216518572411229892
 MonoBehaviour:
@@ -87,10 +87,10 @@ MonoBehaviour:
   Path: FMOD/Ballz/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638376726290857183
+  lastModified: 638377371090594530
   FileSizes:
   - Name: Desktop
-    Value: 830
+    Value: 800
   Exists: 1
 --- !u!114 &2697884407516376984
 MonoBehaviour:
@@ -107,7 +107,7 @@ MonoBehaviour:
   Path: FMOD/Ballz/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638376726290802202
+  lastModified: 638377371090569474
   FileSizes:
   - Name: Desktop
     Value: 1036

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{6383dcd4-c992-41b2-bfaf-a24ce6bdb404}">
 		<property name="name">
-			<value>Henry Mancini - Baby Elephant Walk</value>
+			<value>BGM</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -60,7 +60,7 @@
 	<object class="MarkerTrack" id="{c42f5f68-6075-4203-a3a9-1b01f016949e}" />
 	<object class="GroupTrack" id="{e96fdaef-6bc1-4043-97be-9999d0e511c3}">
 		<relationship name="modules">
-			<destination>{22631acf-479e-4658-80a2-7f12e5d3073a}</destination>
+			<destination>{3d25bce2-b612-45ba-8334-eac1e127b943}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{c6268c81-b481-499a-a9cd-df59d01956df}</destination>
@@ -68,7 +68,10 @@
 	</object>
 	<object class="Timeline" id="{2204b5bb-b738-4f00-97ec-27c72c0ea785}">
 		<relationship name="modules">
-			<destination>{22631acf-479e-4658-80a2-7f12e5d3073a}</destination>
+			<destination>{3d25bce2-b612-45ba-8334-eac1e127b943}</destination>
+		</relationship>
+		<relationship name="markers">
+			<destination>{0cb8fc99-bdba-494e-a696-1ac3cfced7dd}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{e8ad4be9-1947-4a97-8f2e-abe630eab213}">
@@ -88,12 +91,17 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{69266554-b2be-44e5-969b-3dba70b71266}" />
-	<object class="SingleSound" id="{22631acf-479e-4658-80a2-7f12e5d3073a}">
-		<property name="length">
-			<value>161.33224489795919</value>
+	<object class="MultiSound" id="{3d25bce2-b612-45ba-8334-eac1e127b943}">
+		<property name="isAsync">
+			<value>true</value>
 		</property>
-		<relationship name="audioFile">
-			<destination>{a35b477a-e3d5-41e0-a2e9-ba5006c599f8}</destination>
+		<property name="length">
+			<value>20</value>
+		</property>
+		<relationship name="sounds">
+			<destination>{39721198-5d52-4a32-bc7e-442c2a65a374}</destination>
+			<destination>{dc5b3350-f263-414f-9604-dfe549ecb4cd}</destination>
+			<destination>{824b1eb0-8803-45d6-a24e-f4a11338c71d}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{c6268c81-b481-499a-a9cd-df59d01956df}">
@@ -110,6 +118,20 @@
 			<destination>{e8ad4be9-1947-4a97-8f2e-abe630eab213}</destination>
 		</relationship>
 	</object>
+	<object class="LoopRegion" id="{0cb8fc99-bdba-494e-a696-1ac3cfced7dd}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="length">
+			<value>20</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{2204b5bb-b738-4f00-97ec-27c72c0ea785}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{c42f5f68-6075-4203-a3a9-1b01f016949e}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{dc3369e8-4bd4-4265-b142-2ff1a43220a5}">
 		<relationship name="effects">
 			<destination>{8c3a3a79-8cf9-42a0-878f-de1ff9ca6314}</destination>
@@ -117,6 +139,21 @@
 	</object>
 	<object class="MixerBusPanner" id="{54556fbd-0f46-4c3e-bd8e-ded761a8393d}" />
 	<object class="MixerBusFader" id="{332270f5-d52d-44ae-9e63-00d490af5ce5}" />
+	<object class="SingleSound" id="{39721198-5d52-4a32-bc7e-442c2a65a374}">
+		<relationship name="audioFile">
+			<destination>{ff199840-d68d-4411-b208-ce741e984cc3}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{dc5b3350-f263-414f-9604-dfe549ecb4cd}">
+		<relationship name="audioFile">
+			<destination>{41dc3915-29d0-48b0-ad53-93ce1d60553c}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{824b1eb0-8803-45d6-a24e-f4a11338c71d}">
+		<relationship name="audioFile">
+			<destination>{bfd1c504-0e9d-49ba-a27b-7b2133e340c3}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{34137607-b33f-4919-ba01-7fe9f75d99d0}">
 		<relationship name="effects">
 			<destination>{6e8817a9-0207-462c-8472-336473d6efe2}</destination>

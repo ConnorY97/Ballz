@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{bfd1c504-0e9d-49ba-a27b-7b2133e340c3}">
+		<property name="assetPath">
+			<value>SynthWave.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60.081632653061227</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{79413370-0191-4699-8c21-13506edba4ee}</destination>
+		</relationship>
+	</object>
+</objects>
