@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 public class GameManager : MonoBehaviour
 {
     // Singleton stuff
@@ -20,15 +23,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region Vars
     // Inspector values--------------------------
     [Header("Game values")]
     public int rows;
     public int cols;
     public float cellSize;
     public float xSpacing;
+    public float ySpacing;
+    public float scalar = 160;
     public Camera mainCamera;
     public Box boxPrefab;
     public float minBallVelocity = 100;
+    private GameObject[][] cells;
 
     // Box values--------------------------------
     [SerializeField]
@@ -39,6 +46,7 @@ public class GameManager : MonoBehaviour
     public GameObject ballSpawn;
     public Ball ballPrefab;
     public TMP_Text uiCurrentBallCount;
+    public TMP_Text uiBallReturnedCount;
     public float gravityMultipler = 0.75f;
     public int ballSpawnAmount = 1;
 
@@ -46,6 +54,7 @@ public class GameManager : MonoBehaviour
     private bool isShooting = false;
     private int ballsShot = 0;
     private int ballsShotAmount = 0;
+    //private int ballsReturned = 0;
     private bool first = true;
 
 
@@ -65,10 +74,21 @@ public class GameManager : MonoBehaviour
 
     // Star values-------------------------------
     public Star starPrefab;
+    #endregion
 
     private void Start()
     {
-        ballsShotAmount = ballSpawnAmount;
+        GameObject temp = new GameObject();
+        cells = new GameObject[cols][];
+        for (int i = 0; i < cols; i++)
+        {
+            cells[i] = new GameObject[rows];
+            for (int j = 0; j < rows; j++)
+            {
+                cells[i][j] = new GameObject();
+                cells[i][j].transform.position = new Vector3(transform.position.x + (i * (cellSize + xSpacing)), transform.position.y - (j * (cellSize + ySpacing)), 0);
+            }
+        }
 
         SpawnSpawnable();
         SpawnBall(ballSpawnAmount);
@@ -138,6 +158,7 @@ public class GameManager : MonoBehaviour
                     box.Col = i;
                     box.Row = 0;
                     spawnObjects.Add(box);
+                    box.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
                     continue;
                 }
                 else if (spawnChance > 8)
@@ -148,6 +169,7 @@ public class GameManager : MonoBehaviour
                     star.Col = i;
                     star.Row = 0;
                     spawnObjects.Add(star);
+                    star.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
                     continue;
                 }
             }
@@ -291,5 +313,16 @@ public class GameManager : MonoBehaviour
     public void AddBalls(int amount)
     {
         ballSpawnAmount += amount;
+    }
+
+    private void OnDrawGizmos()
+    {
+        for(int i = 0; i < cols; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                Gizmos.DrawCube(cells[i][j].transform.position, new Vector3(cellSize, cellSize, cellSize));
+            }
+        }
     }
 }

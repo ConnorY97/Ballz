@@ -123,6 +123,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &348146257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7770717435293263937, guid: 56d15eb56be0aa24f953046d36f04b10,
+    type: 3}
+  m_PrefabInstance: {fileID: 2003003297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &348146263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348146257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0908e04184865246a697c3171e8c93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 348146257}
+  scaler: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +513,9 @@ MonoBehaviour:
   rows: 8
   cols: 6
   cellSize: 0.6
-  xSpacing: 0
+  xSpacing: 0.05
+  ySpacing: 0.05
+  scalar: 160
   mainCamera: {fileID: 519420031}
   boxPrefab: {fileID: 742963690880164822, guid: e41849444a42b6b40aaa4df1b38b0725,
     type: 3}
@@ -503,6 +525,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 5097904755712417579, guid: a6bd1847f02ea5140b3da88982391780,
     type: 3}
   uiCurrentBallCount: {fileID: 1037060474}
+  uiBallReturnedCount: {fileID: 0}
   gravityMultipler: 0
   ballSpawnAmount: 5
   drag: {fileID: 884394245}
@@ -1898,12 +1921,12 @@ PrefabInstance:
     - target: {fileID: 5748366738600493454, guid: 56d15eb56be0aa24f953046d36f04b10,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7921268
+      value: -1.473
       objectReference: {fileID: 0}
     - target: {fileID: 5748366738600493454, guid: 56d15eb56be0aa24f953046d36f04b10,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3910744
+      value: 2.382
       objectReference: {fileID: 0}
     - target: {fileID: 5748366738600493454, guid: 56d15eb56be0aa24f953046d36f04b10,
         type: 3}
@@ -1945,6 +1968,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5748366738600493454, guid: 56d15eb56be0aa24f953046d36f04b10,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7770717435293263937, guid: 56d15eb56be0aa24f953046d36f04b10,
         type: 3}
       propertyPath: m_Name
@@ -1953,7 +1981,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7770717435293263937, guid: 56d15eb56be0aa24f953046d36f04b10,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 348146263}
   m_SourcePrefab: {fileID: 100100000, guid: 56d15eb56be0aa24f953046d36f04b10, type: 3}
 --- !u!1 &2103048768
 GameObject:
