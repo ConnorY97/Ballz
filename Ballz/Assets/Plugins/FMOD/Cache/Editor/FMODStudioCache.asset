@@ -15,10 +15,12 @@ MonoBehaviour:
   Path: FMOD/Ballz/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638377376039906465
+  lastModified: 638378998422394087
   FileSizes:
   - Name: Desktop
     Value: 5885024
+  - Name: Mobile
+    Value: 10954592
   Exists: 1
 --- !u!114 &-2120466337121383354
 MonoBehaviour:
@@ -70,7 +72,7 @@ MonoBehaviour:
   - {fileID: 2697884407516376984}
   StringsBanks:
   - {fileID: 2216518572411229892}
-  cacheTime: 638377376039906465
+  cacheTime: 638378998422394087
   cacheVersion: 131609
 --- !u!114 &2216518572411229892
 MonoBehaviour:
@@ -87,9 +89,11 @@ MonoBehaviour:
   Path: FMOD/Ballz/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638377371090594530
+  lastModified: 638378998422034025
   FileSizes:
   - Name: Desktop
+    Value: 800
+  - Name: Mobile
     Value: 800
   Exists: 1
 --- !u!114 &2697884407516376984
@@ -107,8 +111,10 @@ MonoBehaviour:
   Path: FMOD/Ballz/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638377371090569474
+  lastModified: 638376726290802202
   FileSizes:
   - Name: Desktop
+    Value: 1036
+  - Name: Mobile
     Value: 1036
   Exists: 1

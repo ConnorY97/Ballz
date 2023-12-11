@@ -321,6 +321,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3375658546246632985, guid: e41849444a42b6b40aaa4df1b38b0725,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375658546246632985, guid: e41849444a42b6b40aaa4df1b38b0725,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375658546246632985, guid: e41849444a42b6b40aaa4df1b38b0725,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375658546246632985, guid: e41849444a42b6b40aaa4df1b38b0725,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432833917396384490, guid: e41849444a42b6b40aaa4df1b38b0725,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 702f709cbe5970b46a31e963ae7d6dce, type: 2}
     - target: {fileID: 7582985913382805065, guid: e41849444a42b6b40aaa4df1b38b0725,
         type: 3}
       propertyPath: m_Name
