@@ -152,6 +152,16 @@ public class GameManager : MonoBehaviour
                 int spawnChance = Random.Range(0, 10);
                 if (spawnChance < 3)
                 {
+
+                }
+            }
+
+            /*
+            for (int i = 0; i < cols; i++)
+            {
+                int spawnChance = Random.Range(0, 10);
+                if (spawnChance < 3)
+                {
                     Box box = Instantiate(boxPrefab, transform);
                     box.Init(RoundCounter);
                     box.transform.position = new Vector2(transform.position.x + (i * (cellSize + xSpacing)), transform.position.y);
@@ -177,6 +187,7 @@ public class GameManager : MonoBehaviour
             {
                 SpawnSpawnable();
             }
+            */
         }
         else
         {
@@ -317,11 +328,14 @@ public class GameManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        for(int i = 0; i < cols; i++)
+        if (cells != null)
         {
-            for (int j = 0; j < rows; j++)
+            for (int i = 0; i < cols; i++)
             {
-                Gizmos.DrawCube(cells[i][j].transform.position, new Vector3(cellSize, cellSize, cellSize));
+                for (int j = 0; j < rows; j++)
+                {
+                    Gizmos.DrawCube(cells[i][j].transform.position, new Vector3(cellSize, cellSize, cellSize));
+                }
             }
         }
     }

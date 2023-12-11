@@ -11,10 +11,16 @@ public class BaseSpawnable : MonoBehaviour
 
     [SerializeField]
     protected Rigidbody2D rb;
-
     public Rigidbody2D Rigidbody
     {
         get { return rb; }
+    }
+
+    protected Transform cell;
+    public Transform Cell
+    {
+        get { return cell; }
+        set { cell = value; }
     }
 
     private int row;
