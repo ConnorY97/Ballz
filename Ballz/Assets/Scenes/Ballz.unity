@@ -346,6 +346,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box
       objectReference: {fileID: 0}
+    - target: {fileID: 7582985913382805065, guid: e41849444a42b6b40aaa4df1b38b0725,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8118445140097291096, guid: e41849444a42b6b40aaa4df1b38b0725,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -815,6 +820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ballz
+      objectReference: {fileID: 0}
+    - target: {fileID: 6763108432008023086, guid: a6bd1847f02ea5140b3da88982391780,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1977,6 +1987,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Triangle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770717435293263937, guid: 56d15eb56be0aa24f953046d36f04b10,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,10 +1,11 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Star : BaseSpawnable
 {
-    public override void Init()
+    public override void Init(int roundCounter, GameObject[] setColumn)
     {
-        base.Init();
+        base.Init(roundCounter, setColumn);
 
         objectValue = Random.Range(1, 10);
         uiObject.text = objectValue.ToString();

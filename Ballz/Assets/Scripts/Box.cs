@@ -2,9 +2,9 @@
 
 public class Box : BaseSpawnable
 {
-    public override void Init(int currentRound)
+    public override void Init(int currentRound, GameObject[] setColumns)
     {
-        base.Init();
+        base.Init(currentRound, setColumns);
 
         objectValue = Random.Range(currentRound, 5 * currentRound);
         uiObject.text = objectValue.ToString();

@@ -152,7 +152,17 @@ public class GameManager : MonoBehaviour
                 int spawnChance = Random.Range(0, 10);
                 if (spawnChance < 3)
                 {
-
+                    Box box = Instantiate(boxPrefab, cells[i][0].transform);
+                    box.Init(RoundCounter, cells[i]);
+                    box.transform.position = cells[i][0].transform.position;
+                    spawnObjects.Add(box);
+                }
+                else if (spawnChance < 8)
+                {
+                    Star star = Instantiate(starPrefab, cells[i][0].transform);
+                    star.Init(RoundCounter, cells[i]);
+                    star.transform.position = cells[i][0].transform.position;
+                    spawnObjects.Add(star);
                 }
             }
 
@@ -201,9 +211,9 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < spawnObjects.Count; i++)
             {
-                spawnObjects[i].transform.position = new Vector2(spawnObjects[i].transform.position.x, spawnObjects[i].transform.position.y - cellSize);
-                spawnObjects[i].Row += 1;
-
+                //spawnObjects[i].transform.position = new Vector2(spawnObjects[i].transform.position.x, spawnObjects[i].transform.position.y - cellSize);
+                //spawnObjects[i].Row += 1;
+                spawnObjects[i].Move();
                 if (spawnObjects[i].transform.position.y <= ballSpawn.transform.position.y)
                 {
                     Debug.Log("Game Over");
@@ -307,18 +317,18 @@ public class GameManager : MonoBehaviour
 
     private void CleanUp()
     {
-        foreach (var box in spawnObjects)
-        {
-            Destroy(box.gameObject);
-        }
-        foreach (var ball in balls)
-        {
-            Destroy(ball.gameObject);
-        }
-        balls.Clear();
-        spawnObjects.Clear();
+        //foreach (var box in spawnObjects)
+        //{
+        //    Destroy(box.gameObject);
+        //}
+        //foreach (var ball in balls)
+        //{
+        //    Destroy(ball.gameObject);
+        //}
+        //balls.Clear();
+        //spawnObjects.Clear();
 
-        SpawnBall(ballSpawnAmount);
+        //SpawnBall(ballSpawnAmount);
     }
 
     public void AddBalls(int amount)
