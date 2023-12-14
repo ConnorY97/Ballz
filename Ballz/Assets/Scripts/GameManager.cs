@@ -4,6 +4,7 @@ using System.Threading;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 public class GameManager : MonoBehaviour
 {
@@ -94,6 +95,8 @@ public class GameManager : MonoBehaviour
         SpawnBall(ballSpawnAmount);
         drag.SetPosition(0, ballSpawn.transform.position);
         drag.SetPosition(1, ballSpawn.transform.position);
+
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -157,7 +160,7 @@ public class GameManager : MonoBehaviour
                     box.transform.position = cells[i][0].transform.position;
                     spawnObjects.Add(box);
                 }
-                else if (spawnChance < 8)
+                else if (spawnChance > 8)
                 {
                     Star star = Instantiate(starPrefab, cells[i][0].transform);
                     star.Init(RoundCounter, cells[i]);
@@ -334,6 +337,16 @@ public class GameManager : MonoBehaviour
     public void AddBalls(int amount)
     {
         ballSpawnAmount += amount;
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void QUIT()
+    {
+        Application.Quit();
     }
 
     private void OnDrawGizmos()

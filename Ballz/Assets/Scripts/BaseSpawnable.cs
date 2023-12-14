@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class BaseSpawnable : MonoBehaviour
 
     [SerializeField]
     protected SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    protected float lerpTime = 2;
 
     [SerializeField]
     protected Rigidbody2D rb;
@@ -22,19 +26,6 @@ public class BaseSpawnable : MonoBehaviour
         get { return cell; }
         set { cell = value; }
     }
-
-    //private int row;
-    //public int Row
-    //{
-    //    get { return row; }
-    //    set { row = value; }
-    //}
-    //private int col;
-    //public int Col
-    //{
-    //    get { return col; }
-    //    set { col = value; }
-    //}
 
     protected int objectValue = 0;
     public int ObjectValue
@@ -55,21 +46,6 @@ public class BaseSpawnable : MonoBehaviour
         get { return currentCell; }
         set { currentCell = value; }
     }
-
-    //public virtual void Init()
-    //{
-    //    if (uiObject == null)
-    //    {
-    //        Debug.Log("Please assign UI Object to " + gameObject.name);
-    //        return;
-    //    }
-
-    //    if (spriteRenderer == null)
-    //    {
-    //        Debug.Log("Please assign SpriteRenderer to " + gameObject.name);
-    //        return;
-    //    }
-    //}
 
     public virtual void Init(int value, GameObject[] setColumn)
     {
@@ -96,8 +72,24 @@ public class BaseSpawnable : MonoBehaviour
     public void Move()
     {
         ++currentCell;
-        // TODO
-        // Add some nice lerping to make this look pretty
-        transform.position = column[currentCell].transform.position;
+        if (column[currentCell] == null)
+        {
+            GameManager.Instance.GameOver();
+        }
+
+        StartCoroutine(LerpFunction(column[currentCell].transform.position));
+    }
+
+    IEnumerator LerpFunction(Vector3 targetYPos)
+    {
+        float time = 0;
+        Vector3 startPos = transform.position;
+        while (time < lerpTime)
+        {
+            transform.position = Vector3.Lerp(startPos, targetYPos, time / lerpTime);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = targetYPos;
     }
 }
