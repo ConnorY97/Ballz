@@ -78,8 +78,8 @@ public class Ball : MonoBehaviour
 
         if (shot)
         {
-            //currentGravity = currentGravity + 0.005f;
-            rb.gravityScale = 0.5f;// currentGravity;
+            currentGravity = currentGravity + 0.005f;
+            rb.gravityScale =  currentGravity;
         }
     }
 }
