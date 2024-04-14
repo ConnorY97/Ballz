@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     // Singleton stuff
@@ -75,6 +76,14 @@ public class GameManager : MonoBehaviour
 
     // Star values-------------------------------
     public Star starPrefab;
+
+    // UI----------------------------------------
+    public UnityEngine.UIElements.Button optionsButton = null;
+    public Canvas optionsCanvas = null;
+    public UnityEngine.UI.Slider masterVolSlider = null;
+
+    // Audio--------------------------------------
+    private FMOD.ChannelGroup masterChannelGroup;
     #endregion
 
     private void Start()
@@ -96,7 +105,13 @@ public class GameManager : MonoBehaviour
         drag.SetPosition(0, ballSpawn.transform.position);
         drag.SetPosition(1, ballSpawn.transform.position);
 
-        //DontDestroyOnLoad(gameObject);
+        if (masterVolSlider != null)
+        {
+            masterVolSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        }
+
+        // Get the master channel group to control audio volume
+        FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
     }
 
     private void Update()
@@ -107,7 +122,7 @@ public class GameManager : MonoBehaviour
             Move();
         }
 
-        if (!isShooting)
+        if (!isShooting && !optionsCanvas.isActiveAndEnabled)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -347,6 +362,19 @@ public class GameManager : MonoBehaviour
     public void QUIT()
     {
         Application.Quit();
+    }
+
+    public void Options()
+    {
+        optionsCanvas.gameObject.SetActive(!optionsCanvas.gameObject.activeInHierarchy);
+    }
+
+    private void ValueChangeCheck()
+    {
+        if (masterChannelGroup.hasHandle())
+        {
+            masterChannelGroup.setVolume(masterVolSlider.value);
+        }
     }
 
     private void OnDrawGizmos()
