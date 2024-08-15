@@ -26,7 +26,7 @@ jobs:
           lfs: false
 
       - name: Caching
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./Ballz/Library
           key: Library-${{matrix.projectName}}-${{matrix.targetPlatform}}
@@ -46,33 +46,24 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
 
       - name: Uploading the build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Build
           path: build
 
-      - name: Test Artifact Upload
-        run: ls -R
-
-  download-project:
-      name: Download Project
+  publish-to-itch:
+      name: Publish to Itch
       runs-on: ubuntu-latest
       needs: build-project
       steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-            name: Build
-
-      - name: Test Artifact Upload
-        run: ls -R
+      - name: Find the build
+        run: ls -la
 
       - name: Uploading to itch.io
-        uses: manleydev/butler-publish-itchio-action@master
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: windows
-          ITCH_GAME: ballz
-          ITCH_USER: ConnorY97
-          PACKAGE: /home/runner/work/Ballz/Ballz/WebGL/WebGL
-          
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{ secrets.BUTLER_CREDENTIALS }}
+          gameData: ./WebGL
+          itchUsername: connory97
+          itchGameId: ballz
+          buildChannel: windows
