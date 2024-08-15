@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
+
 public class GameManager : MonoBehaviour
 {
     // Singleton stuff
@@ -48,7 +50,9 @@ public class GameManager : MonoBehaviour
     public GameObject ballSpawn;
     public Ball ballPrefab;
     public TMP_Text uiCurrentBallCount;
-    public TMP_Text uiBallReturnedCount;
+    public TMP_Text uiReturnedBallCount;
+    public Canvas currentBallCountCanvas;
+    public Canvas returnedBallCountCanvas;
     public float gravityMultipler = 0.75f;
     public int ballSpawnAmount = 1;
 
@@ -56,7 +60,8 @@ public class GameManager : MonoBehaviour
     private bool isShooting = false;
     private int ballsShot = 0;
     private int ballsShotAmount = 0;
-    //private int ballsReturned = 0;
+    private int ballsToShoot = 0;
+    private int ballsReturned = 0;
     private bool first = true;
 
 
@@ -112,6 +117,9 @@ public class GameManager : MonoBehaviour
 
         // Get the master channel group to control audio volume
         FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
+
+        // Hide the return count
+        returnedBallCountCanvas.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -148,6 +156,7 @@ public class GameManager : MonoBehaviour
                 drag.SetPosition(1, ballSpawn.transform.position);
                 clickPos = Vector3.zero;
                 dragPos = Vector3.zero;
+                ballsReturned = 0;
             }
         }
 
@@ -157,8 +166,6 @@ public class GameManager : MonoBehaviour
         }
 
         roundCounterUI.text = RoundCounter.ToString();
-
-        uiCurrentBallCount.text = ballsShotAmount.ToString();
     }
 
     public void SpawnSpawnable()
@@ -268,6 +275,7 @@ public class GameManager : MonoBehaviour
         {
             isShooting = true;
             ballsShotAmount = balls.Count;
+            ballsToShoot = balls.Count;
             for (int i = 0; i < balls.Count; i++)
             {
                 if (balls[i].Rigidbody != null)
@@ -278,7 +286,11 @@ public class GameManager : MonoBehaviour
                     balls[i].Rigidbody.AddForce(dir * force * multiplyier);
                     balls[i].Shot = true;
                     ballsShot++;
+
                     ballsShotAmount--;
+
+                    ballsToShoot--;
+                    uiCurrentBallCount.text = ballsToShoot.ToString();
                 }
                 else
                 {
@@ -303,6 +315,8 @@ public class GameManager : MonoBehaviour
             first = false;
             // Make sure that the height of the spawn is maintained.
             ballSpawn.transform.position = new Vector3(ballToReturn.transform.position.x, ballSpawn.transform.position.y, ballToReturn.transform.position.z);
+
+            returnedBallCountCanvas.gameObject.SetActive(true);
         }
 
         ballToReturn.Rigidbody.Sleep();
@@ -310,9 +324,14 @@ public class GameManager : MonoBehaviour
         ballToReturn.Rigidbody.velocity = Vector3.zero;
         ballToReturn.transform.position = ballSpawn.transform.position;
         ballToReturn.Shot = false;
+
         ballsShot--;
 
         ballsShotAmount++;
+
+        ballsReturned++;
+
+        uiReturnedBallCount.text = ballsReturned.ToString();
 
         if (ballsShot == 0)
         {
@@ -323,8 +342,12 @@ public class GameManager : MonoBehaviour
             if (balls.Count != ballSpawnAmount)
             {
                 SpawnBall(ballSpawnAmount - balls.Count);
-                uiCurrentBallCount.text = ballsShotAmount.ToString();
+                //uiCurrentBallCount.text = ballsShotAmount.ToString();
             }
+
+            returnedBallCountCanvas.gameObject.SetActive(false);
+            currentBallCountCanvas.transform.position = returnedBallCountCanvas.transform.position;
+            uiCurrentBallCount.text = uiReturnedBallCount.text;
         }
     }
 
